@@ -16,14 +16,27 @@ The project comprizes two steps:
 
 The project uses a training set of 13,000 RGB images (image size of 256 x 1600). Among these, there are over 7,000 images with one of more defects. Defects are classified amongst 4 types with significant class imbalance (predominance of one defect type representing 73% of all defects). This obviously impacts the performance of the model to predict the correct type fo defect. A model predicting all faulty parts to be of type n°3 will mechanically reach a accuracy of 73%. Class imbalance will also influence the learning phase and should be mitigated during training (data augmentation, class weight adjustment).
 
+Dataset struture:
+
+![](asset/defect_prop.jpg)
+
+Steel parts with defect type and localization:
+
+![](asset/defects.jpg)
+
+
+
+
+
+
 
 ![](asset/resUnet.jpg)
 
-![](asset/defects.jpg)
+
 
 
 ![](asset/Unet_architecture.jpg)
 
 ![](asset/RLE.jpg)
 
-![](asset/defects.jpg)
+![](asset/default.jpg)
