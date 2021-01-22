@@ -57,7 +57,7 @@ U-Net architecture is based on fully convolutional networks and modified in a wa
 
 # Results
 
-After limited training (40 epochs), the classification model reaches satisfying performance. F1 score over 0.86 and average accuracy of 88%. This performance is achieved by rejecting images with probability of default below 0.01 (1%) and classifying as faulty all above this threshold. A less strict threshold of 0.5 leads to an overall accuracy of over 97%. 
+The classification model reaches satisfying performance. F1 score above 0.86 and average accuracy of 88%. This performance is achieved by rejecting images with probability of default below 0.01 (1%) and classifying as faulty all above this threshold. A less strict threshold of 0.5 leads to an overall accuracy of over 97%. 
 
 ![](asset/classification.jpg)
 
