@@ -24,7 +24,9 @@ Steel parts with defect type and localization:
 
 ![](asset/defects.jpg)
 
+The training set includes a mask localizing the default on the image for the faulty parts. This mask is encoded using RLE (Run Length Encoding) which is a lossless compression technique to reduce storage requierements. RLE stores sequences containing many consecutive data elements as a single value followed by the count. This is particularly useful to compress image segmentation (binary representation at pixel level with '0' or '1' in our mask example here).
 
+![](asset/RLE.jpg)
 
 
 
@@ -37,6 +39,6 @@ Steel parts with defect type and localization:
 
 ![](asset/Unet_architecture.jpg)
 
-![](asset/RLE.jpg)
+
 
 ![](asset/default.jpg)
