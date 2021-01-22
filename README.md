@@ -32,8 +32,18 @@ The training set includes a mask localizing the default on the image for the fau
 
 ![](asset/RLE.jpg)
 
+# ResNet50 Architecture
+
+I covered the ResNet principles in a previous project 'Skin Cancer Classifier'. Those interested can check it out [here](https://github.com/LaurentVeyssier/Skin-Cancer-Classifier-Dermatologist-AI). To solve our problem, the classification section is replaced by a 2-ayer fully connected network after an average pooling layer. This custom section predicts if the proposed image as a default or not (1 or 0). This is a binary classification.
 
 # U-Net model
+
+U-Net type of network are well adapted for segmentation tasks. In a segmentation analysis, the output must be of the same size as the input image. The output will be a mask determining the presence of a default or not (1 or 0 for each pixel coordinates). The mask can then be combined with the original image to highlight surface defects at the level of the pixel.
+
+The U-Net model takes its name from the U-shape. The model has three distincts sections:
+- Encoder or downsampling section
+- Bottleneck section. Similar to autoencoders, the objective is to condense the image representation and capture only key features. The bottleneck forces this simplication.
+- Decoder or upsampling section. The encoded image is upsampled back to the original size and captures the critical information to optimize the custom loss function. The output is a binary mask of same size as the original image. The mask localizes the presence of the default.
 
 ![](asset/Unet_architecture.jpg)
 
