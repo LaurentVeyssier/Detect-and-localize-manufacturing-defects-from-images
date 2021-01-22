@@ -16,6 +16,8 @@ Illustration of image segmentation step on defective steel sheets:
 
 ![](asset/resUnet.jpg)
 
+The goal of image segmentation is to understand and extract information from images at the pixel-level. Image Segmentation can be used for object recognition and localization which offers tremendous value in many applications such as medical imaging or self-driving cars.
+
 # Dataset
 
 The project uses a training set of 13,000 RGB images (image size of 256 x 1600). The dataset is available at kaggle [here](https://www.kaggle.com/c/severstal-steel-defect-detection/data) and is provided in the context of a classification challenge. There are over 7,000 images with one or mutiple defect types. Defects are classified amongst 4 types with significant class imbalance (predominance of one defect type representing 73% of all defects). This obviously impacts the performance of the model to predict the correct type of defect. A model predicting all faulty parts to be of type n°3 will mechanically reach a accuracy of 73% on faulty parts. Class imbalance will also influence the learning phase and should be mitigated during training (data augmentation, class weight adjustment). This step is ignored with this toy dataset.
@@ -38,16 +40,20 @@ I covered the ResNet principles in a previous project 'Skin Cancer Classifier'. 
 
 # U-Net model
 
-U-Net type of network are well adapted for segmentation tasks. In a segmentation analysis, the output must be of the same size as the input image. The output will be a mask determining the presence of a default or not (1 or 0 for each pixel coordinates). The mask can then be combined with the original image to highlight surface defects at the level of the pixel.
+U-Net type of network are well adapted for segmentation tasks. In a segmentation analysis, the output must be of the same size as the input image. The output will be a mask determining the presence of a default or not (1 or 0 for each pixel coordinates). The mask can then be combined with the original image to highlight surface defects at the level of the pixel. For those interested, I covered a similar type of architecture in a previous project [here](https://github.com/LaurentVeyssier/Semantic-Segmentation-with-Fully-Convolution-Network) 
 
 The U-Net model takes its name from the U-shape. The model has three distincts sections:
-- Encoder or downsampling section
+- Encoder or downsampling / contracting section
 - Bottleneck section. Similar to autoencoders, the objective is to condense the image representation and capture only key features. The bottleneck forces this simplication.
-- Decoder or upsampling section. The encoded image is upsampled back to the original size and captures the critical information to optimize the custom loss function. The output is a binary mask of same size as the original image. The mask localizes the presence of the default.
+- Decoder or upsampling / expanding section. The encoded image is upsampled back to the original size and captures the critical information to optimize the custom loss function. The output is a binary mask of same size as the original image. The mask localizes the presence of the default.
 
 ![](asset/Unet_architecture.jpg)
 
+U-Net architecture is based on fully convolutional networks and modified in a way that performs well on segmentation tasks. In this Res-U-Net example, the U-Net architecture combines residual block technique to overcome vanishing gradient issues proper to deep architectures.
 
+- Encoder: It consists of 4 blocks. First block consists of 3x3 convolution layer +  Relu + Batch-Normalization. Each following block takes an input that passes through residual-blocks followed by 2x2 max pooling. While max pooling performs downsampling in x and y dimensions, feature maps after each block doubles, which helps the model learn complex features 
+- Bottleneck: The bottleneck block, serves as a connection between contraction path and expansion path. The block takes the input and then passes through a res-block followed by 2x2 up-sampling convolution layers.
+- Decoder: Each block takes in the up-sampled input from the previous layer and concatenates with the corresponding output features from the res-blocks in the contraction path. This is then again passed through the res-block followed by 2x2 up-sampling convolution layers. This helps to ensure that features learned while contracting are used while reconstructing the image. Finally in the last layer of expansion path, the output from the res-block is passed through 1x1 convolution layer to produce the desired output with the same size as the input. This last convolution performs binary classification to produce the pixel-by-pixel mask through a sigmoid function.
 
 # Results
 
