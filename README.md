@@ -33,16 +33,12 @@ The training set includes a mask localizing the default on the image for the fau
 ![](asset/RLE.jpg)
 
 
-
-
-
-
-
-
-
+# U-Net model
 
 ![](asset/Unet_architecture.jpg)
 
 
+
+# Results
 
 ![](asset/default.jpg)
