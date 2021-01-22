@@ -38,7 +38,7 @@ The training set includes a mask localizing the default on the image for the fau
 
 I covered the ResNet principles in a previous project 'Skin Cancer Classifier'. Those interested can check it out [here](https://github.com/LaurentVeyssier/Skin-Cancer-Classifier-Dermatologist-AI). To solve our problem, the classification section is replaced by a 2-ayer fully connected network after an average pooling layer. This custom section predicts if the proposed image as a default or not (1 or 0). This is a binary classification.
 
-# U-Net model
+# U-Net Architecture
 
 U-Net type of network are well adapted for segmentation tasks. In a segmentation analysis, the output must be of the same size as the input image. The output will be a mask determining the presence of a default or not (1 or 0 for each pixel coordinates). The mask can then be combined with the original image to highlight surface defects at the level of the pixel. For those interested, I covered a similar type of architecture in a previous project [here](https://github.com/LaurentVeyssier/Semantic-Segmentation-with-Fully-Convolution-Network) 
 
@@ -57,10 +57,12 @@ U-Net architecture is based on fully convolutional networks and modified in a wa
 
 # Results
 
-After limited training (40 epochs), the classification model reaches satisfying performance. F1 score over 0.86 and average accuracy of 88%.
+After limited training (40 epochs), the classification model reaches satisfying performance. F1 score over 0.86 and average accuracy of 88%. This performance is achieved by rejecting images with probability of default below 0.01 (1%) and classifying as faulty all above this threshold. A less strict threshold of 0.5 leads to an overall accuracy of over 97%. 
 
 ![](asset/classification.jpg)
 
 The segmentation model uses a custom loss function to address the pixel-wise classification. The project uses the `Focal Tversky Attention U-Net` function available [here](https://github.com/nabsabraham/focal-tversky-unet/blob/master/losses.py). @article{focal-unet, title={A novel Focal Tversky loss function with improved Attention U-Net for lesion segmentation}, author={Abraham, Nabila and Khan, Naimul Mefraz}, journal={arXiv preprint arXiv:1810.07842}, year={2018} }. The outcome is illustrated below:
 
 ![](asset/default.jpg)
+
+In the segmentation step, the project applies the detection threshold of 0.01 once again, rejecting images with probability of default below the threshold and processing all other images for visualization of the detected faulty areas. Steel sheets classified as faulty are therefore identical in both steps.
