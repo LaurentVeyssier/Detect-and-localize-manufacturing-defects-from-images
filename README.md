@@ -1,7 +1,7 @@
 # Detect-and-localize-manufacturing-defects-from-images
 Use ResNet50 deep learning model to predict defects in steel and visually localize the defect using Res-UNET model.
 
-![](asset/Default.jpg)
+![](asset/default.jpg)
 
 This project aims to predict manufacturing defects on steel parts from images. This computer vision technique leverages transfer learning using pretrained ResNet50 model.
 In case a default is detected, another model allows to visually show the detected defaults on the image (image segmentation). The second model generates a pixel-wise prediction to localize the defect on the image using a Res-U-net architecture.
